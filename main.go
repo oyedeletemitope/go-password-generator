@@ -66,24 +66,25 @@ func PasswordGenerator(passwordLength int) string {
 	password := ""
 
 	// Initialize the random number generator
-	rand.Seed(time.Now().UnixNano())
+	source := rand.NewSource(time.Now().UnixNano())
+	rng := rand.New(source)
 
 	for n := 0; n < passwordLength; n++ {
 		// NOW RANDOM CHARACTER
-		randNum := rand.Intn(4)
+		randNum := rng.Intn(4)
 
 		switch randNum {
 		case 0:
-			randCharNum := rand.Intn(len(lowerCase))
+			randCharNum := rng.Intn(len(lowerCase))
 			password += string(lowerCase[randCharNum])
 		case 1:
-			randCharNum := rand.Intn(len(upperCase))
+			randCharNum := rng.Intn(len(upperCase))
 			password += string(upperCase[randCharNum])
 		case 2:
-			randCharNum := rand.Intn(len(Numbers))
+			randCharNum := rng.Intn(len(Numbers))
 			password += string(Numbers[randCharNum])
 		case 3:
-			randCharNum := rand.Intn(len(specialChar))
+			randCharNum := rng.Intn(len(specialChar))
 			password += string(specialChar[randCharNum])
 		}
 	}
